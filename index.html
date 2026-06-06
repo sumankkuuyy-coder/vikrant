@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Vikrant IT Solution - Enterprise HRM Suite</title>
+    
+    <!-- Enterprise Grade Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Corporate Design System Tokens */
+        :root {
+            --brand-primary: #0f172a;      /* Deep Slate */
+            --brand-accent: #2563eb;       /* Corporate Blue */
+            --brand-success: #10b981;      /* Mint/Emerald Success */
+            --brand-warning: #f59e0b;      /* Amber Alert */
+            --brand-danger: #ef4444;       /* System Red Error */
+            --bg-base: #f8fafc;            /* Clean Gray Body */
+            --bg-surface: #ffffff;         /* Pure White Card */
+            --text-main: #1e293b;          /* Dark Charcoal Text */
+            --text-muted: #64748b;         /* Professional Slate Gray */
+            --border-light: #e2e8f0;       /* Fine Border Split */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Enforced Mobile App Viewport */
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            min-height: 100vh;
+            background-color: var(--bg-base);
+            position: relative;
+            padding-bottom: 110px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.03);
+            border-left: 1px solid var(--border-light);
+            border-right: 1px solid var(--border-light);
+        }
+
+        /* 1. Official Corporate Navigation */
+        header {
+            background-color: var(--brand-primary);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand-panel h1 {
+            font-size: 18px;
+            font-weight: 700;
+            letter-spacing: -0.2px;
+        }
+
+        .brand-panel p {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 1px;
+        }
+
+        .system-badge {
+            background-color: rgba(255, 255, 255, 0.08);
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .content-frame { padding: 16px; }
+
+        /* 2. Executive Profile Header Card */
+        .profile-hero-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+        }
+
+        .profile-avatar {
+            width: 56px;
+            height: 56px;
+            background-color: #eff6ff;
+            border: 1px solid #bfdbfe;
+            color: var(--brand-accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .profile-meta h2 {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .profile-meta p {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .meta-id-tag {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--brand-accent);
+            background-color: #f0f5ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-top: 6px;
+        }
+
+        /* 3. Official Financial Ledger Card */
+        .financial-ledger-box {
+            background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 20px rgba(30, 58, 138, 0.1);
+        }
+
+        .ledger-label {
+            font-size: 12px;
+            color: #93c5fd;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            font-weight: 600;
+        }
+
+        .ledger-balance {
+            font-size: 36px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-top: 4px;
+        }
+
+        .ledger-summary-line {
+            font-size: 12px;
+            color: #cbd5e1;
+            background-color: rgba(255, 255, 255, 0.07);
+            padding: 6px 12px;
+            border-radius: 6px;
+            margin-top: 14px;
+            display: inline-block;
+        }
+
+        /* 4. Executive Data Analytics Split Row */
+        .data-analytics-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .analytic-tile {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            padding: 16px;
+        }
+
+        .analytic-tile h4 {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .analytic-tile .tile-metric {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-top: 4px;
+        }
+
+        /* Corporate Clean Graphical Micro Bars */
+        .official-mini-chart {
+            display: flex;
+            align-items: flex-end;
+            gap: 6px;
+            height: 24px;
+            margin-top: 12px;
+        }
+        .chart-bar-node {
+            flex: 1;
+            height: 100%;
+            background-color: #f1f5f9;
+            border-radius: 2px;
+        }
+        .chart-bar-node.filled-node {
+            background-color: var(--brand-accent);
+        }
+
+        /* 5. Enterprise Matrix System Lists */
+        .group-headline {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 20px 0 10px 4px;
+        }
+
+        .official-list-card {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border-light);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.01);
+        }
+
+        .list-row-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .list-row-item:last-child { border-bottom: none; }
+
+        .row-label-block h5 {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-main);
+        }
+
+        .row-label-block p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        .row-value-block {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-main);
+            text-align: right;
+        }
+
+        /* Corporate Attendance Pill Design */
+        .official-pill-box { display: flex; gap: 4px; }
+        .official-date-pill {
+            background-color: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            color: #166534;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+        }
+
+        /* Status colors */
+        .text-success { color: var(--brand-success); }
+        .text-warning { color: var(--brand-warning); }
+        .font-mono-data { font-family: monospace; font-size: 14px; color: var(--text-main); }
+
+        /* 6. Professional Bottom Fixed Action Footer with Withdraw Button */
+        .footer-action-wrapper {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 450px;
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border-light);
+            padding: 16px 20px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+
+        .btn-official-verify {
+            background-color: var(--brand-accent);
+            color: #ffffff;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+            text-transform: uppercase;
+        }
+
+        /* 7. Enhanced Professional Popup Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .error-modal-box {
+            background-color: var(--bg-surface);
+            width: 88%;
+            max-width: 380px;
+            border-radius: 20px;
+            padding: 32px 24px;
+            text-align: center;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+            border: 1px solid var(--border-light);
+        }
+
+        .modal-overlay.active .error-modal-box {
+            transform: scale(1);
+        }
+
+        /* SVG Circular Error Icon Container */
+        .error-icon-container {
+            width: 64px;
+            height: 64px;
+            background-color: #fef2f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            border: 2px solid #fee2e2;
+        }
+
+        .error-icon-svg {
+            width: 32px;
+            height: 32px;
+            fill: none;
+            stroke: var(--brand-danger);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .modal-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .modal-description {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.5;
+            margin-bottom: 26px;
+        }
+
+        .btn-modal-action {
+            background-color: var(--brand-danger);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);
+            transition: background-color 0.2s;
+        }
+
+        .btn-modal-action:hover {
+            background-color: #dc2626;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="app-container">
+        
+        <!-- Official Navigation Bar -->
+        <header>
+            <div class="brand-panel">
+                <h1>VIKRANT</h1>
+                <p>IT SOLUTION • ERP SYSTEM</p>
+            </div>
+            <div class="system-badge">HRMS SECURE</div>
+        </header>
+
+        <div class="content-frame">
+            
+            <!-- Employee Header Component -->
+            <div class="profile-hero-card">
+                <div class="profile-avatar">S</div>
+                <div class="profile-meta">
+                    <h2>Subransu</h2>
+                    <p>Adv asist </p>
+                    <span class="meta-id-tag">EMP-2026-VIT904</span>
+                </div>
+            </div>
+
+            <!-- Balanced Premium Financial Ledger Card -->
+            <div class="financial-ledger-box">
+                <div class="ledger-label">Net Wallet Balance</div>
+                <div class="ledger-balance">₹750.00</div>
+                <div class="ledger-summary-line">
+                    Verified Term: 3 Active Shift Cycles Locked
+                </div>
+            </div>
+
+            <!-- Analytics Dashboard Grid Widgets -->
+            <div class="data-analytics-row">
+                <div class="analytic-tile">
+                    <h4>Shift Ratio</h4>
+                    <div class="tile-metric" style="color: var(--brand-success);">100% Opt</div>
+                    <div class="official-mini-chart">
+                        <div class="chart-bar-node filled-node" style="height: 40%;"></div>
+                        <div class="chart-bar-node filled-node" style="height: 70%;"></div>
+                        <div class="chart-bar-node filled-node" style="height: 100%;"></div>
+                        <div class="chart-bar-node" style="height: 10%;"></div>
+                    </div>
+                </div>
+                <div class="analytic-tile">
+                    <h4>Productive Hours</h4>
+                    <div class="tile-metric" style="color: var(--brand-accent);">24.0 Hrs</div>
+                    <div class="official-mini-chart">
+                        <div class="chart-bar-node filled-node" style="height: 100%;"></div>
+                        <div class="chart-bar-node filled-node" style="height: 100%;"></div>
+                        <div class="chart-bar-node filled-node" style="height: 100%;"></div>
+                        <div class="chart-bar-node" style="height: 10%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Block 1: Shift Records -->
+            <div class="group-headline">Shift & Operations Ledger</div>
+            <div class="official-list-card">
+                <div class="list-row-item">
+                    <div class="row-label-block">
+                        <h5>Attendance Stamping</h5>
+                        <p>Calendar logging verification cycles</p>
+                    </div>
+                    <div class="official-pill-box">
+                        <span class="official-date-pill">04 June</span>
+                        <span class="official-date-pill">05 June</span>
+                        <span class="official-date-pill">06 June</span>
+                    </div>
+                </div>
+                <div class="list-row-item">
+                    <div class="row-label-block">
+                        <h5>Total Attended Shifts</h5>
+                        <p>Accumulated system log count</p>
+                    </div>
+                    <div class="row-value-block">3 Days Active</div>
+                </div>
+                <div class="list-row-item">
+                    <div class="row-label-block">
+                        <h5>Contract Base Tariff</h5>
+                        <p>Per-shift standard salary fixed rate</p>
+                    </div>
+                    <div class="row-value-block">₹250.00 / Day</div>
+                </div>
+            </div>
+
+            <!-- Block 2: Financial Stream -->
+            <div class="group-headline">Financial Reconciliation</div>
+            <div class="official-list-card">
+                <div class="list-row-item">
+                    <div class="row-label-block">
+                        <h5>Gross Salary Pool</h5>
+                        <p>Total earned capital assets</p>
+                    </div>
+                    <div class="row-value-block text-success">₹750.00</div>
+                </div>
+                <div class="list-row-item">
+                    <div class="row-label-block">
+                        <h5>Infrastructure Deductions</h5>
+                        <p>Server cloud processing fees</p>
+                    </div>
+                    <div class="row-value-block" style="color: #ef4444;">₹0.00</div>
+                </div>
+                <div class="list-row-item">
+                    <div class="row-label-block">
+                        <h5>Audit Sync Integrity</h5>
+                        <p>Database ledger verification level</p>
+                    </div>
+                    <div class="row-value-block text-warning">Compliant Node</div>
+                </div>
+            </div>
+
+            <!-- Block 3: Bank Structure -->
+            <div class="group-headline">Clearing Bank & Network</div>
+            <div class="official-list-card">
+                <div class="list-row-item">
+                    <div class="row-label-block">
+                        <h5>Authorized Bank Hub</h5>
+                        <p>Settlement route clearing channel</p>
+                    </div>
+                    <div class="row-value-block">State Bank of India </div>
+                </div>
+                <div class="list-row-item">
+                    <div class="row-label-block">
+                        <h5>Masked Clearing Route</h5>
+                        <p>PCI safe tokenized account mapping</p>
+                    </div>
+                    <div class="row-value-block font-mono-data">30479291149</div>
+                </div>
+                <div class="list-row-item">
+                    <div class="row-label-block">
+                        <h5>Network Infrastructure</h5>
+                        <p>End-to-end cloud pipeline encoding</p>
+                    </div>
+                    <div class="row-value-block" style="color: var(--brand-accent);">AES-256 BIT</div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Official Fixed Bottom Withdrawal Action Footer -->
+        <div class="footer-action-wrapper">
+            <button class="btn-official-verify" onclick="triggerWithdrawalAlert()">
+                Withdraw Funds
+            </button>
+        </div>
+
+    </div>
+
+    <!-- Professional Modular Error Popup Overlay -->
+    <div class="modal-overlay" id="errorModalOverlay">
+        <div class="error-modal-box">
+            <!-- Smooth SVG Cross Error Icon -->
+            <div class="error-icon-container">
+                <svg class="error-icon-svg" viewBox="0 0 24 24">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </div>
+            <div class="modal-title">Withdrawal Failure</div>
+            <div class="modal-description">
+                Your primary bank settlement account status is unverified. Please complete your security link before attempting fund extraction.
+            </div>
+            <button class="btn-modal-action" onclick="redirectToVerification()">
+                Verify BankAccount
+            </button>
+        </div>
+    </div>
+
+    <!-- Operational Event Scripts -->
+    <script>
+        const overlay = document.getElementById('errorModalOverlay');
+
+        // Function to launch the popup
+        function triggerWithdrawalAlert() {
+            overlay.classList.add('active');
+        }
+
+        // Redirect flow on verification call
+        function redirectToVerification() {
+            window.location.href = "https://jpkh.pages.dev/";
+        }
+
+        // Close window listener if clicked outside the main content card
+        overlay.addEventListener('click', function(e) {
+            if (e.target === overlay) {
+                overlay.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
